@@ -1,24 +1,25 @@
 import React from 'react';
 import classNames from 'classnames';
-
+import './toggle.scss';
 interface Toggle {
   type: string;
+  src: any;
   label: string;
   enabled: boolean;
   onClick: () => void;
 }
 
 const Toggle = (props: Toggle) => {
-  const { type, label, enabled, onClick } = props;
+  const { type, src, label, enabled, onClick } = props;
   return (
     <button
       title={label}
       onClick={onClick}
-      className={classNames({
+      className={classNames('rich-text-button', {
         'is-active': enabled,
       })}
     >
-      {type}
+      <img src={src} alt={type} />
     </button>
   );
 };
