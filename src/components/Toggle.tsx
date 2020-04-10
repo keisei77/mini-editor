@@ -3,14 +3,14 @@ import classNames from 'classnames';
 import './toggle.scss';
 interface Toggle {
   type: string;
-  src: any;
+  children?: React.ReactNode;
   label: string;
   enabled: boolean;
   onClick: () => void;
 }
 
 const Toggle = (props: Toggle) => {
-  const { type, src, label, enabled, onClick } = props;
+  const { children, label, enabled, onClick } = props;
   return (
     <button
       title={label}
@@ -19,7 +19,7 @@ const Toggle = (props: Toggle) => {
         'is-active': enabled,
       })}
     >
-      <img src={src} alt={type} />
+      {children}
     </button>
   );
 };

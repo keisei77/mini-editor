@@ -5,23 +5,10 @@
   border: 0;
   background: #fff;
   margin: 0 4px;
+  cursor: pointer;
 
   img {
     width: 100%;
     height: 100%;
-  }
-
-  &.is-active {
-    position: relative;
-
-    &::after {
-      position: absolute;
-      content: '';
-      top: 0;
-      right: 0;
-      height: 100%;
-      width: 100%;
-      border: 1px solid;
-    }
   }
 }
