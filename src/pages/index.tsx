@@ -13,7 +13,7 @@ const Home = () => {
   return (
     <div className="home">
       <div>简易富文本编辑器</div>
-      <Toolbar />
+      <Toolbar content={content} />
       <Textarea changeHandler={changeHandler} content={content} />
     </div>
   );

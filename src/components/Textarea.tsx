@@ -43,6 +43,7 @@ const Textarea = (props: Textarea) => {
 
   return (
     <div
+      id="textarea"
       contentEditable
       ref={elRef}
       onInput={(event) => changeHandler(event)}

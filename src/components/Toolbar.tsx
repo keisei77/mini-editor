@@ -10,32 +10,46 @@ export type ToolbarAction =
   | { type: 'underline' };
 
 export type ToolbarState = {
+  content: string;
   bold: boolean;
   italic: boolean;
   underline: boolean;
 };
 
-const initialState: ToolbarState = {
-  bold: false,
-  italic: false,
-  underline: false,
-};
-
 function reducer(state: ToolbarState, action: ToolbarAction) {
-  switch (action.type) {
-    case 'bold':
-      return { ...state, bold: !state.bold };
-    case 'italic':
-      return { ...state, italic: !state.italic };
-    case 'underline':
-      return { ...state, underline: !state.underline };
+  const currentSelection = window.getSelection();
+  if (currentSelection) {
+    const { anchorOffset, focusOffset } = currentSelection;
+
+    switch (action.type) {
+      case 'bold':
+        const currentContent = state.content;
+        return { ...state, bold: !state.bold };
+      case 'italic':
+        return { ...state, italic: !state.italic };
+      case 'underline':
+        return { ...state, underline: !state.underline };
+    }
+  } else {
+    return state;
   }
 }
 
-const Toolbar = () => {
+interface Toolbar {
+  content: string;
+}
+
+const Toolbar = (props: Toolbar) => {
+  const { content } = props;
+
   const [state, dispatch] = useReducer<Reducer<ToolbarState, ToolbarAction>>(
     reducer,
-    initialState
+    {
+      content,
+      bold: false,
+      italic: false,
+      underline: false,
+    }
   );
 
   return (
