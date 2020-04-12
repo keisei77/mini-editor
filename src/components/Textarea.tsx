@@ -50,8 +50,9 @@ const Textarea = (props: Textarea) => {
       onBlur={(event) => changeHandler(event)}
       onKeyUp={(event) => changeHandler(event)}
       onKeyDown={(event) => changeHandler(event)}
-      dangerouslySetInnerHTML={{ __html: content }}
-    />
+    >
+      {content}
+    </div>
   );
 };
 

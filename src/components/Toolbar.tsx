@@ -1,13 +1,14 @@
-import React, { useReducer, Reducer } from 'react';
+import React from 'react';
 import Toggle from './Toggle';
 import BoldSvg from './BoldSvg';
 import ItalicSvg from './ItalicSvg';
 import UnderlineSvg from './UnderlineSvg';
 
 export type ToolbarAction =
-  | { type: 'bold' }
-  | { type: 'italic' }
-  | { type: 'underline' };
+  | { type: 'bold'; payload: string }
+  | { type: 'italic'; payload: string }
+  | { type: 'underline'; payload: string }
+  | { type: 'change'; payload: string };
 
 export type ToolbarState = {
   content: string;
@@ -16,68 +17,47 @@ export type ToolbarState = {
   underline: boolean;
 };
 
-function reducer(state: ToolbarState, action: ToolbarAction) {
-  const currentSelection = window.getSelection();
-  if (currentSelection) {
-    const { anchorOffset, focusOffset } = currentSelection;
-
-    switch (action.type) {
-      case 'bold':
-        const currentContent = state.content;
-        return { ...state, bold: !state.bold };
-      case 'italic':
-        return { ...state, italic: !state.italic };
-      case 'underline':
-        return { ...state, underline: !state.underline };
-    }
-  } else {
-    return state;
-  }
-}
-
 interface Toolbar {
   content: string;
+  toolbarState: ToolbarState;
+  toolbarDispatch: React.Dispatch<ToolbarAction>;
 }
 
 const Toolbar = (props: Toolbar) => {
-  const { content } = props;
-
-  const [state, dispatch] = useReducer<Reducer<ToolbarState, ToolbarAction>>(
-    reducer,
-    {
-      content,
-      bold: false,
-      italic: false,
-      underline: false,
-    }
-  );
+  const { toolbarState, toolbarDispatch } = props;
 
   return (
     <>
       <Toggle
         type="bold"
         label="粗体"
-        enabled={state.bold}
-        onClick={() => dispatch({ type: 'bold' })}
+        enabled={toolbarState.bold}
+        onClick={() =>
+          toolbarDispatch({ type: 'bold', payload: toolbarState.content })
+        }
       >
-        <BoldSvg enabled={state.bold} />
+        <BoldSvg enabled={toolbarState.bold} />
       </Toggle>
       <Toggle
         type="italic"
         label="斜体"
-        enabled={state.italic}
-        onClick={() => dispatch({ type: 'italic' })}
+        enabled={toolbarState.italic}
+        onClick={() =>
+          toolbarDispatch({ type: 'italic', payload: toolbarState.content })
+        }
       >
-        <ItalicSvg enabled={state.italic} />
+        <ItalicSvg enabled={toolbarState.italic} />
       </Toggle>
 
       <Toggle
         type="underline"
         label="下划线"
-        enabled={state.underline}
-        onClick={() => dispatch({ type: 'underline' })}
+        enabled={toolbarState.underline}
+        onClick={() =>
+          toolbarDispatch({ type: 'underline', payload: toolbarState.content })
+        }
       >
-        <UnderlineSvg enabled={state.underline} />
+        <UnderlineSvg enabled={toolbarState.underline} />
       </Toggle>
     </>
   );
