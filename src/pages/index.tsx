@@ -19,15 +19,19 @@ const Home = () => {
         case 'italic':
           currentContent = state.content.replace(
             selectedContent,
-            `<span style="font-weight: 700;">${selectedContent}</span>`
+            `<span style="font-style: italic;">${selectedContent}</span>`
           );
-          return { ...state, italic: !state.italic };
+          return { ...state, italic: !state.italic, content: currentContent };
         case 'underline':
           currentContent = state.content.replace(
             selectedContent,
-            `<span style="font-weight: 700;">${selectedContent}</span>`
+            `<span style="text-decoration: underline;">${selectedContent}</span>`
           );
-          return { ...state, underline: !state.underline };
+          return {
+            ...state,
+            underline: !state.underline,
+            content: currentContent,
+          };
         case 'change':
           return { ...state, payload: action.payload };
       }
