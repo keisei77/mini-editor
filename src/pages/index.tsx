@@ -53,21 +53,23 @@ const Home = () => {
 
   return (
     <div className="home">
-      <div>简易富文本编辑器</div>
-      <Toolbar
-        toolbarState={toolbarState}
-        toolbarDispatch={toolbarDispatch}
-        content={toolbarState.content}
-      />
-      <Textarea
-        changeHandler={(event) =>
-          toolbarDispatch({
-            type: 'change',
-            payload: event.currentTarget.innerHTML,
-          })
-        }
-        content={toolbarState.content}
-      />
+      <div style={{ paddingBottom: '8px' }}>简易富文本编辑器</div>
+      <div style={{ border: '1px solid #cccccc', borderRadius: '4px' }}>
+        <Toolbar
+          toolbarState={toolbarState}
+          toolbarDispatch={toolbarDispatch}
+          content={toolbarState.content}
+        />
+        <Textarea
+          changeHandler={(event) =>
+            toolbarDispatch({
+              type: 'change',
+              payload: event.currentTarget.innerHTML,
+            })
+          }
+          content={toolbarState.content}
+        />
+      </div>
     </div>
   );
 };

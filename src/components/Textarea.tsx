@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from 'react';
-
+import './textarea.scss';
 interface Textarea {
   content: string;
   changeHandler: (event: React.SyntheticEvent) => void;
